@@ -5,32 +5,13 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * PersonGenerator collects person data from user input,
+ * creates Person objects, stores them in an ArrayList,
+ * and writes the data to a specified CSV file.
+ * Utilizes SafeInput for input validation.
+ */
 public class PersonGenerator {
-
-    // Person class to hold the person data
-    static class Person {
-        final String id;
-        final String firstName;
-        final String lastName;
-        final String title;
-        final int yearOfBirth;
-
-        public Person(String id, String firstName, String lastName, String title, int yearOfBirth) {
-            this.id = id;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.title = title;
-            this.yearOfBirth = yearOfBirth;
-        }
-
-        @Override
-        public String toString() {
-
-            // Formats: id, firstName, lastName, title, yearOfBirth
-            return id + ", " + firstName + ", " + lastName + ", " + title + ", " + yearOfBirth;
-        }
-    }
-
 
     public static void main(String[] args) {
 
@@ -52,8 +33,8 @@ public class PersonGenerator {
             String title = SafeInput.getRegExString(scanner, "Title (Mr., Mrs., Ms., Dr., Esq.)",
                     "^(Mr\\.|Mrs\\.|Ms\\.|Dr\\.|Esq\\.)$");
 
-            // Gets year of birth allowing a reasonable range, e.g. 900 to 2025
-            int yearOfBirth = SafeInput.getRangedInt(scanner, "Year of Birth", 900, 2025);
+            // Gets year of birth allowing a reasonable range, e.g. 1940 to 2010
+            int yearOfBirth = SafeInput.getRangedInt(scanner, "Year of Birth", 1940, 2010);
 
             // Creates and adds Person object
             Person p = new Person(id, firstName, lastName, title, yearOfBirth);
@@ -63,13 +44,13 @@ public class PersonGenerator {
         }
 
         // Asks for filename to save
-        String filename = SafeInput.getNonZeroLenString(scanner, "Enter filename to save:");
+        String filename = SafeInput.getNonZeroLenString(scanner, "Enter filename to save");
 
         // Saves to file
         Path file = Path.of(filename);
         try (BufferedWriter writer = Files.newBufferedWriter(file)) {
             for (Person p : people) {
-                writer.write(p.toString());
+                writer.write(p.toCSV());
                 writer.newLine();
             }
             System.out.println("\nData saved successfully to " + filename);
