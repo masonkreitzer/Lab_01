@@ -2,7 +2,6 @@
  * Represents a Person with identifying information.
  */
 public class Person {
-
     private final String id;
     private String firstName;
     private String lastName;

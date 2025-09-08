@@ -4,36 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ProductWriter {
-
-    // Product class to hold the product data
-    static class Product {
-        final String id;
-        final String name;
-        final String description;
-        final double cost;
-
-        public Product(String id, String name, String description, double cost) {
-            this.id = id;
-            this.name = name;
-            this.description = description;
-            this.cost = cost;
-        }
-
-        // Convert to comma-delimited string for file writing
-        public String toString() {
-
-            // Formats: id, name, description, cost
-            return String.format("%s, %s, %s, %.1f", id, name, description, cost);
-        }
-    }
+public class ProductGenerator {
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         ArrayList<Product> products = new ArrayList<>();
 
-        System.out.println("Product Writer - Enter product data");
+        System.out.println("Product Generator - Enter product data");
 
         boolean addMore = true;
 
@@ -45,7 +23,9 @@ public class ProductWriter {
             String description = SafeInput.getNonZeroLenString(scanner, "Enter Product Description");
             double cost = SafeInput.getDouble(scanner, "Enter Product Cost");
 
-            products.add(new Product(id, name, description, cost));
+            // Uses product class
+            Product p = new Product(id, name, description, cost);
+            products.add(p);
 
             addMore = SafeInput.getYNConfirm(scanner, "Do you want to add another product?");
         }
@@ -56,7 +36,7 @@ public class ProductWriter {
         // Saves to file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Product p : products) {
-                writer.write(p.toString());
+                writer.write(p.toCSV());
                 writer.newLine();
             }
             System.out.println("Products saved successfully to " + fileName);
