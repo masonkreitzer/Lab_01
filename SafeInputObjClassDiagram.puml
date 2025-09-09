@@ -1,0 +1,14 @@
+@startuml
+class SafeInputObj {
+  - sc: Scanner
+
+  + SafeInputObj()
+  + SafeInputObj(sc: Scanner)
+  + getNonZeroLenString(prompt: String): String
+  + getInt(prompt: String): int
+  + getRangedInt(prompt: String, min: int, max: int): int
+  + getDouble(prompt: String): double
+  + getRangedDouble(prompt: String, min: double, max: double): double
+  + getYNConfirm(prompt: String): boolean
+}
+@enduml

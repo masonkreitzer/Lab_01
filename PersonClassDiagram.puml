@@ -1,0 +1,26 @@
+@startuml
+class Person {
+    - id: String
+    - firstName: String
+    - lastName: String
+    - title: String
+    - yearOfBirth: int
+
+    + Person(id: String, firstName: String, lastName: String, title: String, yearOfBirth: int)
+    + getId(): String
+    + getFirstName(): String
+    + getLastName(): String
+    + getTitle(): String
+    + getYearOfBirth(): int
+    + setFirstName(firstName: String): void
+    + setLastName(lastName: String): void
+    + setTitle(title: String): void
+    + setYearOfBirth(yearOfBirth: int): void
+    + getAge(year: int): int
+    + toCSV(): String
+    + toJSON(): String
+    + toXML(): String
+    + toString(): String
+    + equals(obj: Object): boolean
+}
+@enduml
